@@ -14,6 +14,9 @@ public class Nom {
     }
 
     public Double getOrder(String letter) {
+        if (!units.containsKey(letter)) {
+            return 0.0;
+        }
         return units.get(letter);
     }
 
@@ -21,14 +24,12 @@ public class Nom {
         if (null == letter || 0 == order) {
             return;
         }
-        double newOrder = units.computeIfAbsent(letter, l -> 0.0);
-        newOrder += order;
-        newOrder = Math.round(newOrder*100.0) / 100.0;
-        if( 0==newOrder) {
-            units.remove(letter);
-        } else {
-            units.put(letter, newOrder);
-        }
+        units.compute(letter, (l, o) -> {
+            double r = null == o ? 0 : o;
+            r += order;
+            r = Math.round(r * 100.0) / 100.0;
+            return 0 == r ? null : r;
+        });
     }
 
     @Override
