@@ -1,4 +1,4 @@
-package temp.rathio.calc.data;
+package temp.ratio.calc.data;
 
 import java.util.Collection;
 import java.util.HashMap;

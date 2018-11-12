@@ -1,5 +1,6 @@
-package temp.rathio.calc.data;
+package temp.ratio.calc.data;
 
+import temp.ratio.calc.data.Nom;
 import junit.framework.Assert;
 import org.junit.Test;
 
