@@ -13,6 +13,14 @@ public class Nom {
 
     }
 
+    public Nom(String letter) {
+        this(letter, 1);
+    }
+
+    public Nom(String letter, double order) {
+        append(letter, order);
+    }
+
     public Nom(Nom src) {
         units.putAll(src.units);
     }
@@ -28,9 +36,9 @@ public class Nom {
         return units.get(letter);
     }
 
-    public void append(String letter, double order) {
+    public final Nom append(String letter, double order) {
         if (null == letter || 0 == order) {
-            return;
+            return this;
         }
         if (!units.containsKey(letter)) {
             units.put(letter, order);
@@ -44,6 +52,7 @@ public class Nom {
                 units.put(letter, o);
             }
         }
+        return this;
     }
 
     public Nom merge(Nom n) {

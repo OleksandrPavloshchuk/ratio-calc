@@ -20,7 +20,7 @@ public class Polynom {
         return noms.get(n);
     }
 
-    public void add(Nom n, double value) {
+    public Polynom add(Nom n, double value) {
         if (0 != value) {
             if (!noms.containsKey(n)) {
                 noms.put(n, value);
@@ -35,6 +35,7 @@ public class Polynom {
                 }
             }
         }
+        return this;
     }
 
     public Polynom mul(Nom n, Double value) {
@@ -52,21 +53,18 @@ public class Polynom {
 
     public static Polynom add(Polynom p1, Polynom p2) {
         final Polynom r = new Polynom();
-        p1.noms.forEach((k,v)->r.add(k, v));
-        p2.noms.forEach((k,v)->r.add(k, v));
+        p1.noms.forEach((k, v) -> r.add(k, v));
+        p2.noms.forEach((k, v) -> r.add(k, v));
         return r;
     }
 
     public void add(Polynom p) {
-        p.noms.forEach((k,v)->add(k, v));
+        p.noms.forEach((k, v) -> add(k, v));
     }
 
     public static Polynom mul(Polynom p1, Polynom p2) {
         final Polynom r = new Polynom();
-        p1.noms.forEach((n,v)->{
-            final Polynom pp = p2.mul(n, v);
-            r.add(pp);
-        });
+        p1.noms.forEach((n, v) -> r.add(p2.mul(n, v)));
         return r;
     }
 
@@ -94,9 +92,5 @@ public class Polynom {
     public String toString() {
         return String.valueOf(noms);
     }
-
-    
-
-    
 
 }
