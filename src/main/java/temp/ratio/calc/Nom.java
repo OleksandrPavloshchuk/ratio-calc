@@ -53,6 +53,10 @@ public class Nom {
         return r;
     }
 
+    public boolean isEmpty() {
+        return units.isEmpty();
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(units);

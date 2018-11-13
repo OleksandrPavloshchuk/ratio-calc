@@ -25,6 +25,8 @@ public class Polynom2LaTeX {
                 sb.append('-');
             } else if (v!=1) {
                 sb.append( Util.asString(v));
+            } else if (n.isEmpty()) {
+                sb.append("1");
             }
             new Nom2LaTeX(n).render(sb);
         }
