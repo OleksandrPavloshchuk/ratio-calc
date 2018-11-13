@@ -14,17 +14,20 @@ public class Polynom2LaTeX {
 
     public void render(StringBuilder sb) {
         boolean isFirst = true;
-        for( final Nom n : polynom.getNoms() ) {
+        for (final Nom n : polynom.getNoms()) {
             final double v = polynom.getValue(n);
-            if( isFirst ) {
+            if (isFirst) {
                 isFirst = false;
-            } else if ( v>0 ) {
+            } else if (v > 0) {
                 sb.append('+');
             }
-            if( v==-1) {
+            if (v == -1) {
                 sb.append('-');
-            } else if (v!=1) {
-                sb.append( Util.asString(v));
+                if (n.isEmpty()) {
+                    sb.append("1");
+                }
+            } else if (v != 1) {
+                sb.append(Util.asString(v));
             } else if (n.isEmpty()) {
                 sb.append("1");
             }
