@@ -20,15 +20,20 @@ public class Polynom {
     }
 
     public void add(Nom n, double value) {
-        if (0 == value) {
-            return;
+        if (0 != value) {
+            if (!noms.containsKey(n)) {
+                noms.put(n, value);
+            } else {
+                double v = noms.get(n);
+                v += value;
+                v = Util.adjust(v);
+                if (0 == v) {
+                    noms.remove(n);
+                } else {
+                    noms.put(n, v);
+                }
+            }
         }
-        noms.compute(n, (k, v) -> {
-            double r = null == v ? 0 : v;
-            r += value;
-            r = Math.round(r * 100.0) / 100.0;
-            return 0 == r ? null : r;
-        });
     }
 
     public Polynom mul(Nom n, Double value) {
@@ -39,7 +44,7 @@ public class Polynom {
         }
         noms.forEach((k, v) -> {
             final Nom newKey = k.merge(n);
-            r.noms.put(k, value + v);
+            r.noms.put(k, Util.adjust(value * v));
         });
         return r;
     }

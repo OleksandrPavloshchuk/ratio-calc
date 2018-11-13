@@ -27,7 +27,7 @@ public class Nom {
         units.compute(letter, (l, o) -> {
             double r = null == o ? 0 : o;
             r += order;
-            r = Math.round(r * 100.0) / 100.0;
+            r = Util.adjust(r);
             return 0 == r ? null : r;
         });
     }
