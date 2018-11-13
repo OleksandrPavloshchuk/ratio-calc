@@ -1,13 +1,13 @@
 package temp.ratio.calc;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Nom {
 
-    private final Map<String, Double> units = new HashMap<>();
+    private final Map<String, Double> units = new TreeMap<>();
 
     public Nom() {
 
