@@ -3,6 +3,7 @@ package temp.ratio.calc;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Polynom {
 
@@ -44,9 +45,58 @@ public class Polynom {
         }
         noms.forEach((k, v) -> {
             final Nom newKey = k.merge(n);
-            r.noms.put(k, Util.adjust(value * v));
+            r.noms.put(newKey, Util.adjust(value * v));
         });
         return r;
     }
+
+    public static Polynom add(Polynom p1, Polynom p2) {
+        final Polynom r = new Polynom();
+        p1.noms.forEach((k,v)->r.add(k, v));
+        p2.noms.forEach((k,v)->r.add(k, v));
+        return r;
+    }
+
+    public void add(Polynom p) {
+        p.noms.forEach((k,v)->add(k, v));
+    }
+
+    public static Polynom mul(Polynom p1, Polynom p2) {
+        final Polynom r = new Polynom();
+        p1.noms.forEach((n,v)->{
+            final Polynom pp = p2.mul(n, v);
+            r.add(pp);
+        });
+        return r;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(noms);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Polynom other = (Polynom) obj;
+        return Objects.equals(noms, other.noms);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(noms);
+    }
+
+    
+
+    
 
 }

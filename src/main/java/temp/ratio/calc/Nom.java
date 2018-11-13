@@ -9,6 +9,14 @@ public class Nom {
 
     private final Map<String, Double> units = new HashMap<>();
 
+    public Nom() {
+
+    }
+
+    public Nom(Nom src) {
+        units.putAll(src.units);
+    }
+
     public Collection<String> getLetters() {
         return units.keySet();
     }
@@ -24,12 +32,18 @@ public class Nom {
         if (null == letter || 0 == order) {
             return;
         }
-        units.compute(letter, (l, o) -> {
-            double r = null == o ? 0 : o;
-            r += order;
-            r = Util.adjust(r);
-            return 0 == r ? null : r;
-        });
+        if (!units.containsKey(letter)) {
+            units.put(letter, order);
+        } else {
+            double o = units.get(letter);
+            o += order;
+            o = Util.adjust(o);
+            if (0 == o) {
+                units.remove(letter);
+            } else {
+                units.put(letter, o);
+            }
+        }
     }
 
     public Nom merge(Nom n) {
