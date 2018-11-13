@@ -20,7 +20,7 @@ public class Nom {
         return units.get(letter);
     }
 
-    public void add(String letter, double order) {
+    public void append(String letter, double order) {
         if (null == letter || 0 == order) {
             return;
         }
@@ -30,6 +30,13 @@ public class Nom {
             r = Math.round(r * 100.0) / 100.0;
             return 0 == r ? null : r;
         });
+    }
+
+    public static Nom merge(Nom n1, Nom n2) {
+        final Nom r = new Nom();
+        n1.units.forEach((k, v) -> r.append(k, v));
+        n2.units.forEach((k, v) -> r.append(k, v));
+        return r;
     }
 
     @Override
