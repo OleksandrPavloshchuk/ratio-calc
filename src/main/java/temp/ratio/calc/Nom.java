@@ -1,4 +1,4 @@
-package temp.ratio.calc.data;
+package temp.ratio.calc;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -32,10 +32,10 @@ public class Nom {
         });
     }
 
-    public static Nom merge(Nom n1, Nom n2) {
+    public Nom merge(Nom n) {
         final Nom r = new Nom();
-        n1.units.forEach((k, v) -> r.append(k, v));
-        n2.units.forEach((k, v) -> r.append(k, v));
+        n.units.forEach((k, v) -> r.append(k, v));
+        this.units.forEach((k, v) -> r.append(k, v));
         return r;
     }
 

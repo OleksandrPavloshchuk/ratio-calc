@@ -1,5 +1,6 @@
-package temp.ratio.calc.data;
+package temp.ratio.calc;
 
+import temp.ratio.calc.Nom;
 import static junit.framework.Assert.*;
 import org.junit.Test;
 
@@ -59,7 +60,7 @@ public class NomUnitTest {
         n2.append("b", 3);
         n2.append("c", 0.5);
 
-        Nom actual = Nom.merge(n1, n2);
+        Nom actual = n1.merge(n2);
 
         Nom expected = new Nom();
         expected.append("a", -4);
