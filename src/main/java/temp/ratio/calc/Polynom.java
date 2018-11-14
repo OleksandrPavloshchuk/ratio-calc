@@ -1,13 +1,13 @@
 package temp.ratio.calc;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Polynom {
 
-    private final Map<PolynomUnit, Double> units = new LinkedHashMap<>();
+    private final Map<PolynomUnit, Double> units = new TreeMap<>();
 
     public Collection<PolynomUnit> getUnits() {
         return units.keySet();

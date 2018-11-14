@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
-public class PolynomUnit {
+public class PolynomUnit implements Comparable<PolynomUnit> {
 
     private final Map<String, Frac> units = new TreeMap<>();
 
@@ -107,6 +107,29 @@ public class PolynomUnit {
     @Override
     public String toString() {
         return String.valueOf(units);
+    }
+
+    @Override
+    public int compareTo(PolynomUnit o) {
+        int r = getOrder().compareTo(o.getOrder());
+        if( 0!=r ) {
+            return -r;
+        }
+        return getSignature().compareTo(o.getSignature());
+    }
+
+    private Frac getOrder() {
+        Frac r = new Frac(0);
+        for( Frac f : units.values() ) {
+            r = r.add(f);
+        }
+        return r;
+    }
+
+    private String getSignature() {
+        final StringBuilder sb = new StringBuilder();
+        units.forEach((k,v)->sb.append(k).append(v));
+        return sb.toString();
     }
 
 }

@@ -26,7 +26,24 @@ public class Polynom2LaTeXUnitTest {
         StringBuilder sb = new StringBuilder();
         new Polynom2LaTeX(p).render(sb);
 
-        Assert.assertEquals("{a}^{4}-4{a}^{3}{b}+6{a}^{2}{b}^{2}-4{a}{b}^{3}+{b}^{4}", sb.toString());
+        Assert.assertEquals("-4{a}{b}^{3}+6{a}^{2}{b}^{2}-4{a}^{3}{b}+{a}^{4}+{b}^{4}", sb.toString());
+    }
+
+    @Test
+    public void order2() {
+        Polynom p1 = new Polynom()
+            .add( new PolynomUnit(), -3)
+            .add( new PolynomUnit("x"), 1);
+        Polynom p2 = new Polynom()
+            .add( new PolynomUnit(), -1)
+            .add( new PolynomUnit("x"), 1);
+
+        Polynom p = Polynom.mul(p2, p1);
+
+        StringBuilder sb = new StringBuilder();
+        new Polynom2LaTeX(p).render(sb);
+        
+        Assert.assertEquals("{x}^{2}-4{x}+3", sb.toString());
     }
 
     static Polynom p() {
