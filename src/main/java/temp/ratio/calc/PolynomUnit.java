@@ -5,23 +5,30 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
-public class Nom {
+public class PolynomUnit {
 
-    private final Map<String, Double> units = new TreeMap<>();
+    private final Map<String, Frac> units = new TreeMap<>();
 
-    public Nom() {
-
+    public PolynomUnit() {
     }
 
-    public Nom(String letter) {
+    public PolynomUnit(String letter) {
         this(letter, 1);
     }
 
-    public Nom(String letter, double order) {
+    public PolynomUnit(String letter, int n) {
+        this(letter, n, 1);
+    }
+
+    public PolynomUnit(String letter, int n, int d) {
+        this(letter, new Frac(n, d));
+    }
+
+    public PolynomUnit(String letter, Frac order) {
         append(letter, order);
     }
 
-    public Nom(Nom src) {
+    public PolynomUnit(PolynomUnit src) {
         units.putAll(src.units);
     }
 
@@ -29,24 +36,35 @@ public class Nom {
         return units.keySet();
     }
 
-    public Double getOrder(String letter) {
+    public Frac getOrder(String letter) {
         if (!units.containsKey(letter)) {
-            return 0.0;
+            return Frac.ZERO;
         }
         return units.get(letter);
     }
 
-    public final Nom append(String letter, double order) {
-        if (null == letter || 0 == order) {
+    public final PolynomUnit append(String letter) {
+        return append(letter, 1);
+    }
+
+    public final PolynomUnit append(String letter, int n) {
+        return append(letter, n, 1);
+    }
+
+    public final PolynomUnit append(String letter, int n, int d) {
+        return append(letter, new Frac(n, d));
+    }
+
+    public final PolynomUnit append(String letter, Frac order) {
+        if (null == letter || Frac.ZERO.equals(order)) {
             return this;
         }
         if (!units.containsKey(letter)) {
             units.put(letter, order);
         } else {
-            double o = units.get(letter);
-            o += order;
-            o = Util.adjust(o);
-            if (0 == o) {
+            Frac o = units.get(letter);
+            o = o.add(order);
+            if (Frac.ZERO.equals(o)) {
                 units.remove(letter);
             } else {
                 units.put(letter, o);
@@ -55,8 +73,8 @@ public class Nom {
         return this;
     }
 
-    public Nom merge(Nom n) {
-        final Nom r = new Nom();
+    public PolynomUnit merge(PolynomUnit n) {
+        final PolynomUnit r = new PolynomUnit();
         n.units.forEach((k, v) -> r.append(k, v));
         this.units.forEach((k, v) -> r.append(k, v));
         return r;
@@ -82,7 +100,7 @@ public class Nom {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Nom other = (Nom) obj;
+        final PolynomUnit other = (PolynomUnit) obj;
         return Objects.equals(units, other.units);
     }
 

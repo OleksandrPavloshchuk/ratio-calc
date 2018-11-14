@@ -1,1 +1,6 @@
-target
+/build/
+/dist/
+/target/
+build.xml
+/lib/
+/nbproject/
