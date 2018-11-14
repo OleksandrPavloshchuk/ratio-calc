@@ -25,5 +25,5 @@
         <plugins>
         </plugins>
     </build>
-
+    <description>symbolic polynom calculations</description>
 </project>
