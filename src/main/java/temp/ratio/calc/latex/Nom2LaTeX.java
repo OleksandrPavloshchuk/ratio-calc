@@ -1,13 +1,13 @@
 package temp.ratio.calc.latex;
 
-import temp.ratio.calc.Nom;
+import temp.ratio.calc.PolynomUnit;
 import temp.ratio.calc.Util;
 
 public class Nom2LaTeX {
 
-    private final Nom nom;
+    private final PolynomUnit nom;
 
-    public Nom2LaTeX(Nom nom) {
+    public Nom2LaTeX(PolynomUnit nom) {
         this.nom = nom;
     }
 

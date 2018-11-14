@@ -1,6 +1,6 @@
 package temp.ratio.calc.latex;
 
-import temp.ratio.calc.Nom;
+import temp.ratio.calc.PolynomUnit;
 import temp.ratio.calc.Polynom;
 import temp.ratio.calc.Util;
 
@@ -14,7 +14,7 @@ public class Polynom2LaTeX {
 
     public void render(StringBuilder sb) {
         boolean isFirst = true;
-        for (final Nom n : polynom.getNoms()) {
+        for (final PolynomUnit n : polynom.getNoms()) {
             final double v = polynom.getValue(n);
             if (isFirst) {
                 isFirst = false;

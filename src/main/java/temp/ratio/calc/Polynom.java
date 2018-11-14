@@ -7,20 +7,20 @@ import java.util.Objects;
 
 public class Polynom {
 
-    private final Map<Nom, Double> noms = new LinkedHashMap<>();
+    private final Map<PolynomUnit, Double> noms = new LinkedHashMap<>();
 
-    public Collection<Nom> getNoms() {
+    public Collection<PolynomUnit> getNoms() {
         return noms.keySet();
     }
 
-    public Double getValue(Nom n) {
+    public Double getValue(PolynomUnit n) {
         if (!noms.containsKey(n)) {
             return 0.0;
         }
         return noms.get(n);
     }
 
-    public Polynom add(Nom n, double value) {
+    public Polynom add(PolynomUnit n, double value) {
         if (0 != value) {
             if (!noms.containsKey(n)) {
                 noms.put(n, value);
@@ -38,14 +38,14 @@ public class Polynom {
         return this;
     }
 
-    public Polynom mul(Nom n, Double value) {
+    public Polynom mul(PolynomUnit n, Double value) {
         final Polynom r = new Polynom();
         if (0 == value) {
             noms.clear();
             return r;
         }
         noms.forEach((k, v) -> {
-            final Nom newKey = k.merge(n);
+            final PolynomUnit newKey = k.merge(n);
             r.noms.put(newKey, Util.adjust(value * v));
         });
         return r;
