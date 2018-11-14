@@ -15,9 +15,11 @@ public class Frac {
         if (0 == d) {
             throw new IllegalArgumentException("denominator is 0");
         }
-        final int g = gcd(n, d);
-        this.n = n / g;
-        this.d = d / g;
+        int td = d < 0 ? -d : d;
+        int tn = d < 0 ? -n : n;
+        final int g = gcd(tn, td);
+        this.n = tn / g;
+        this.d = td / g;
     }
 
     public int n() {
