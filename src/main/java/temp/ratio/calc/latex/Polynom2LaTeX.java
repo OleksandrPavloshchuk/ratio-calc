@@ -14,7 +14,7 @@ public class Polynom2LaTeX {
 
     public void render(StringBuilder sb) {
         boolean isFirst = true;
-        for (final PolynomUnit n : polynom.getNoms()) {
+        for (final PolynomUnit n : polynom.getUnits()) {
             final double v = polynom.getValue(n);
             if (isFirst) {
                 isFirst = false;

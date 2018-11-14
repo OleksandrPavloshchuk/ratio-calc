@@ -2,7 +2,10 @@ package temp.ratio.calc;
 
 import java.util.Objects;
 
-public class Frac {
+public class Frac implements Comparable<Frac> {
+
+    public static final Frac ZERO = new Frac(0);
+    public static final Frac ONE = new Frac(1);
 
     private final int n;
     private final int d;
@@ -17,7 +20,7 @@ public class Frac {
         }
         int td = d < 0 ? -d : d;
         int tn = d < 0 ? -n : n;
-        final int g = gcd(tn, td);
+        final int g = gcd(Math.abs(tn), Math.abs(td));
         this.n = tn / g;
         this.d = td / g;
     }
@@ -78,8 +81,14 @@ public class Frac {
     }
 
     private static final int lcm(int a, int b) {
-        final int g = gcd(a, b);
-        return (a * b) / g;
+        return (a * b) / gcd(a, b);
+    }
+
+    @Override
+    public int compareTo(Frac o) {
+        final Double v1 = ((double) n) / d;
+        final Double v2 = ((double) o.n) / o.d;
+        return v1.compareTo(v2);
     }
 
 }

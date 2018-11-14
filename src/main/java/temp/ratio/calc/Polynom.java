@@ -7,31 +7,31 @@ import java.util.Objects;
 
 public class Polynom {
 
-    private final Map<PolynomUnit, Double> noms = new LinkedHashMap<>();
+    private final Map<PolynomUnit, Double> units = new LinkedHashMap<>();
 
-    public Collection<PolynomUnit> getNoms() {
-        return noms.keySet();
+    public Collection<PolynomUnit> getUnits() {
+        return units.keySet();
     }
 
     public Double getValue(PolynomUnit n) {
-        if (!noms.containsKey(n)) {
+        if (!units.containsKey(n)) {
             return 0.0;
         }
-        return noms.get(n);
+        return units.get(n);
     }
 
     public Polynom add(PolynomUnit n, double value) {
         if (0 != value) {
-            if (!noms.containsKey(n)) {
-                noms.put(n, value);
+            if (!units.containsKey(n)) {
+                units.put(n, value);
             } else {
-                double v = noms.get(n);
+                double v = units.get(n);
                 v += value;
                 v = Util.adjust(v);
                 if (0 == v) {
-                    noms.remove(n);
+                    units.remove(n);
                 } else {
-                    noms.put(n, v);
+                    units.put(n, v);
                 }
             }
         }
@@ -41,36 +41,36 @@ public class Polynom {
     public Polynom mul(PolynomUnit n, Double value) {
         final Polynom r = new Polynom();
         if (0 == value) {
-            noms.clear();
+            units.clear();
             return r;
         }
-        noms.forEach((k, v) -> {
+        units.forEach((k, v) -> {
             final PolynomUnit newKey = k.merge(n);
-            r.noms.put(newKey, Util.adjust(value * v));
+            r.units.put(newKey, Util.adjust(value * v));
         });
         return r;
     }
 
     public static Polynom add(Polynom p1, Polynom p2) {
         final Polynom r = new Polynom();
-        p1.noms.forEach((k, v) -> r.add(k, v));
-        p2.noms.forEach((k, v) -> r.add(k, v));
+        p1.units.forEach((k, v) -> r.add(k, v));
+        p2.units.forEach((k, v) -> r.add(k, v));
         return r;
     }
 
     public void add(Polynom p) {
-        p.noms.forEach((k, v) -> add(k, v));
+        p.units.forEach((k, v) -> add(k, v));
     }
 
     public static Polynom mul(Polynom p1, Polynom p2) {
         final Polynom r = new Polynom();
-        p1.noms.forEach((n, v) -> r.add(p2.mul(n, v)));
+        p1.units.forEach((n, v) -> r.add(p2.mul(n, v)));
         return r;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(noms);
+        return Objects.hash(units);
     }
 
     @Override
@@ -85,12 +85,12 @@ public class Polynom {
             return false;
         }
         final Polynom other = (Polynom) obj;
-        return Objects.equals(noms, other.noms);
+        return Objects.equals(units, other.units);
     }
 
     @Override
     public String toString() {
-        return String.valueOf(noms);
+        return String.valueOf(units);
     }
 
 }

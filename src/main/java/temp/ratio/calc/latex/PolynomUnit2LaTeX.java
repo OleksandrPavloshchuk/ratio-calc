@@ -1,7 +1,7 @@
 package temp.ratio.calc.latex;
 
+import temp.ratio.calc.Frac;
 import temp.ratio.calc.PolynomUnit;
-import temp.ratio.calc.Util;
 
 public class PolynomUnit2LaTeX {
 
@@ -13,10 +13,12 @@ public class PolynomUnit2LaTeX {
 
     public void render(StringBuilder sb) {
         nom.getLetters().forEach(l -> {
-            final double order = Util.adjust(nom.getOrder(l));
+            final Frac order = nom.getOrder(l);
             sb.append('{').append(l).append('}');
-            if (1 != order) {
-                sb.append("^{").append(Util.asString(order)).append('}');
+            if (!Frac.ONE.equals(order)) {
+                sb.append("^{");
+                new Frac2LaTeX(order).render(sb);
+                sb.append('}');
             }
         });
     }

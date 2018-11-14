@@ -9,7 +9,7 @@ public class PolynomUnit2LaTeXUnitTest {
     @Test
     public void simple() {
         StringBuilder sb = new StringBuilder();
-        new PolynomUnit2LaTeX(new PolynomUnit().append("a", 1)).render(sb);
+        new PolynomUnit2LaTeX(new PolynomUnit("a")).render(sb);
 
         Assert.assertEquals("{a}", sb.toString());
     }
@@ -17,12 +17,11 @@ public class PolynomUnit2LaTeXUnitTest {
     @Test
     public void test1() {
         StringBuilder sb = new StringBuilder();
-        new PolynomUnit2LaTeX(new PolynomUnit()
-                .append("a", 2)
-                .append("c", -2.5)
+        new PolynomUnit2LaTeX(new PolynomUnit("a", 2)
+                .append("c", 5, -2)
                 .append("b", 1)).render(sb);
 
-        Assert.assertEquals("{a}^{2}{b}{c}^{-2.5}", sb.toString());
+        Assert.assertEquals("{a}^{2}{b}{c}^{-\\frac{5}{2}}", sb.toString());
     }
 
 }
