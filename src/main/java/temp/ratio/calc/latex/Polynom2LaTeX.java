@@ -31,7 +31,7 @@ public class Polynom2LaTeX {
             } else if (n.isEmpty()) {
                 sb.append("1");
             }
-            new Nom2LaTeX(n).render(sb);
+            new PolynomUnit2LaTeX(n).render(sb);
         }
     }
 
