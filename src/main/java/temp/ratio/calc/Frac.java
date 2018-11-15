@@ -86,8 +86,8 @@ public class Frac implements Comparable<Frac> {
 
     @Override
     public int compareTo(Frac o) {
-        final Double v1 = ((double) n) / d;
-        final Double v2 = ((double) o.n) / o.d;
+        final Integer v1 = n * o.d;
+        final Integer v2 = o.n * d;
         return v1.compareTo(v2);
     }
 

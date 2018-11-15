@@ -118,12 +118,8 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
         return getSignature().compareTo(o.getSignature());
     }
 
-    private Frac getOrder() {
-        Frac r = new Frac(0);
-        for( Frac f : units.values() ) {
-            r = r.add(f);
-        }
-        return r;
+    public Frac getOrder() {
+        return units.values().stream().reduce(new Frac(0), (f1, f2) -> f1.add(f2));
     }
 
     private String getSignature() {
