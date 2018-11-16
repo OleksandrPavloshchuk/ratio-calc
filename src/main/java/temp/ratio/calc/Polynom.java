@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
+import temp.ratio.calc.builder.PolynomUnitBuilder;
 
 public class Polynom {
 
@@ -44,10 +45,12 @@ public class Polynom {
             units.clear();
             return r;
         }
-        units.forEach((k, v) -> {
-            final PolynomUnit newKey = k.merge(n);
-            r.units.put(newKey, Util.adjust(value * v));
-        });
+        units.forEach((k, v)
+            -> {
+            PolynomUnit newKey = PolynomUnitBuilder.build().append(k).append(n);
+            r.units.put(newKey, Util.adjust(value * v)); }
+            //r.units.put(PolynomUnitBuilder.build().append(k).append(n), Util.adjust(value * v));
+        );
         return r;
     }
 
@@ -74,10 +77,10 @@ public class Polynom {
         r[0].add(this);
         r[1] = new Polynom();
 
-        PolynomUnit ucTotal = new PolynomUnit();
+        PolynomUnit ucTotal = PolynomUnitBuilder.build();
         for (final PolynomUnit u : units.keySet()) {
             final PolynomUnit uc = u.getComplementToNegative();
-            ucTotal = ucTotal.merge(uc);
+            ucTotal = ucTotal.append(uc);
             r[0] = r[0].mul(uc, 1d);
         }
         r[1].add(ucTotal, 1);
