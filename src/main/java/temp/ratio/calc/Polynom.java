@@ -68,6 +68,22 @@ public class Polynom {
         return r;
     }
 
+    public Polynom[] getComplementToNegative() {
+        final Polynom[] r = new Polynom[2];
+        r[0] = new Polynom();
+        r[0].add(this);
+        r[1] = new Polynom();
+
+        PolynomUnit ucTotal = new PolynomUnit();
+        for (final PolynomUnit u : units.keySet()) {
+            final PolynomUnit uc = u.getComplementToNegative();
+            ucTotal = ucTotal.merge(uc);
+            r[0] = r[0].mul(uc, 1d);
+        }
+        r[1].add(ucTotal, 1);
+        return r;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(units);

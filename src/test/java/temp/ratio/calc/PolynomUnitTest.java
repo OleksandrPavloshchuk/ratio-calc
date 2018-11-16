@@ -1,6 +1,6 @@
 package temp.ratio.calc;
 
-import junit.framework.Assert;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 public class PolynomUnitTest {
@@ -24,7 +24,7 @@ public class PolynomUnitTest {
                 .add(new PolynomUnit("b", 2), -1)
                 .add(new PolynomUnit("a", 2), 1);
 
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
     }
 
@@ -49,7 +49,7 @@ public class PolynomUnitTest {
                 .add(bc, 2)
                 .add(ac, 2);
 
-        Assert.assertEquals(expected, actual);
+       assertEquals(expected, actual);
     }
 
     @Test
@@ -71,8 +71,25 @@ public class PolynomUnitTest {
                 .add(new PolynomUnit("a", 3), 1)
                 .add(new PolynomUnit("b", 3), -1);
 
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
     }
+
+    @Test
+    public void complementToNegative() {
+        final Polynom p = new Polynom()
+                .add(new PolynomUnit("a", -1), 1)
+                .add(new PolynomUnit("c", -1), 1)
+                .add(new PolynomUnit("b", -1), 1);
+        final Polynom[] c = p.getComplementToNegative();
+        assertEquals(new Polynom()
+            .add(new PolynomUnit("a").append("b"), 1)
+            .add(new PolynomUnit("b").append("c"), 1)
+            .add(new PolynomUnit("c").append("a"), 1), c[0]);
+        assertEquals(new Polynom()
+            .add( new PolynomUnit("a").append("b").append("c"), 1), c[1]);
+        
+    }
+
 
 }

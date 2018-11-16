@@ -84,6 +84,20 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
         return units.isEmpty();
     }
 
+    public Frac getOrder() {
+        return units.values().stream().reduce(new Frac(0), (f1, f2) -> f1.add(f2));
+    }
+
+    public PolynomUnit getComplementToNegative() {
+        final PolynomUnit r = new PolynomUnit();
+        units.forEach((l, o) -> {
+            if (o.n() < 0) {
+                r.append(l, -o.n(), o.d());
+            }
+        });
+        return r;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(units);
@@ -112,19 +126,15 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
     @Override
     public int compareTo(PolynomUnit o) {
         int r = getOrder().compareTo(o.getOrder());
-        if( 0!=r ) {
+        if (0 != r) {
             return -r;
         }
         return getSignature().compareTo(o.getSignature());
     }
 
-    public Frac getOrder() {
-        return units.values().stream().reduce(new Frac(0), (f1, f2) -> f1.add(f2));
-    }
-
     private String getSignature() {
         final StringBuilder sb = new StringBuilder();
-        units.forEach((k,v)->sb.append(k).append(v));
+        units.forEach((k, v) -> sb.append(k).append(v));
         return sb.toString();
     }
 
