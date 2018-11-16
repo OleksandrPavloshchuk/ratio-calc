@@ -15,7 +15,7 @@ public class PolynomUnit2LaTeX {
         nom.getLetters().forEach(l -> {
             final Frac order = nom.getOrder(l);
             sb.append('{').append(l).append('}');
-            if (!Frac.ONE.equals(order)) {
+            if (!order.is1()) {
                 sb.append("^{");
                 new Frac2LaTeX(order).render(sb);
                 sb.append('}');

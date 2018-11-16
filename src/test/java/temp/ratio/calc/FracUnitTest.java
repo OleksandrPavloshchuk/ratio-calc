@@ -1,19 +1,20 @@
 package temp.ratio.calc;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static temp.ratio.calc.builder.FracBuilder.build;
 
 public class FracUnitTest {
 
     @Test
     public void mul() {
-        Assert.assertEquals( new Frac(1, 12), new Frac(3,8).mul( new Frac(2,9)));
+        assertEquals(build(1, 12), build(3, 8).mul(build(2, 9)));
     }
 
     @Test
     public void add() {
-        Assert.assertEquals( new Frac(545, 144), new Frac(8,36).add( new Frac(57,16)));
-        Assert.assertEquals( new Frac(29, 28), new Frac(2,7).add( new Frac(6,8)));
+        assertEquals(build(545, 144), build(8, 36).add(build(57, 16)));
+        assertEquals(build(29, 28), build(2, 7).add(build(6, 8)));
     }
 
 }

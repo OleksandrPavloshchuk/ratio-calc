@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
+import temp.ratio.calc.builder.FracBuilder;
 
 public class PolynomUnit implements Comparable<PolynomUnit> {
 
@@ -21,7 +22,7 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
     }
 
     public PolynomUnit(String letter, int n, int d) {
-        this(letter, new Frac(n, d));
+        this(letter, FracBuilder.build(n, d));
     }
 
     public PolynomUnit(String letter, Frac order) {
@@ -38,7 +39,7 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
 
     public Frac getOrder(String letter) {
         if (!units.containsKey(letter)) {
-            return Frac.ZERO;
+            return FracBuilder.build(0);
         }
         return units.get(letter);
     }
@@ -52,11 +53,11 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
     }
 
     public final PolynomUnit append(String letter, int n, int d) {
-        return append(letter, new Frac(n, d));
+        return append(letter, FracBuilder.build(n, d));
     }
 
     public final PolynomUnit append(String letter, Frac order) {
-        if (null == letter || Frac.ZERO.equals(order)) {
+        if (null == letter || order.is0()) {
             return this;
         }
         if (!units.containsKey(letter)) {
@@ -64,7 +65,7 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
         } else {
             Frac o = units.get(letter);
             o = o.add(order);
-            if (Frac.ZERO.equals(o)) {
+            if (o.is0()) {
                 units.remove(letter);
             } else {
                 units.put(letter, o);
@@ -85,7 +86,7 @@ public class PolynomUnit implements Comparable<PolynomUnit> {
     }
 
     public Frac getOrder() {
-        return units.values().stream().reduce(new Frac(0), (f1, f2) -> f1.add(f2));
+        return units.values().stream().reduce(FracBuilder.build(0), (f1, f2) -> f1.add(f2));
     }
 
     public PolynomUnit getComplementToNegative() {
