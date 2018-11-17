@@ -3,6 +3,7 @@ package temp.ratio.calc.latex;
 import junit.framework.Assert;
 import org.junit.Test;
 import temp.ratio.calc.Polynom;
+import temp.ratio.calc.builder.PolynomBuilder;
 import static temp.ratio.calc.builder.PolynomUnitBuilder.build;
 
 public class Polynom2LaTeXUnitTest {
@@ -10,7 +11,7 @@ public class Polynom2LaTeXUnitTest {
     @Test
     public void simple() {
         StringBuilder sb = new StringBuilder();
-        new Polynom2LaTeX(new Polynom()
+        new Polynom2LaTeX(PolynomBuilder.build()
                 .add(build("a").append("b", 2), 1)
                 .add(build("b").append("a", 2), -1)).render(sb);
 
@@ -21,7 +22,7 @@ public class Polynom2LaTeXUnitTest {
     public void newtonFormula() {
         Polynom p = p();
         for (int i = 1; i < 4; i++) {
-            p = Polynom.mul(p, p());
+            p = p.mul(p());
         }
         StringBuilder sb = new StringBuilder();
         new Polynom2LaTeX(p).render(sb);
@@ -31,14 +32,14 @@ public class Polynom2LaTeXUnitTest {
 
     @Test
     public void order2() {
-        Polynom p1 = new Polynom()
+        Polynom p1 = PolynomBuilder.build()
             .add( build(), -3)
             .add( build("x"), 1);
-        Polynom p2 = new Polynom()
+        Polynom p2 = PolynomBuilder.build()
             .add( build(), -1)
             .add( build("x"), 1);
 
-        Polynom p = Polynom.mul(p2, p1);
+        Polynom p = p2.mul(p1);
 
         StringBuilder sb = new StringBuilder();
         new Polynom2LaTeX(p).render(sb);
@@ -47,7 +48,7 @@ public class Polynom2LaTeXUnitTest {
     }
 
     static Polynom p() {
-        return new Polynom()
+        return PolynomBuilder.build()
                 .add(build("a"), 1)
                 .add(build("b"), -1);
     }
